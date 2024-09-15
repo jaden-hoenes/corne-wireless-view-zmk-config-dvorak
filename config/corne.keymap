@@ -1,0 +1,131 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    combos { compatible = "zmk,combos"; };
+
+    behaviors {
+        lpht: lpht {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LPHT";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <400>;
+            flavor = "tap-unless-interrupted";
+            hold-trigger-key-positions = <6 7 8 9 10 22 34 33 21 20 19 18 30 31 32>;
+        };
+
+        rpht: rpht {
+            compatible = "zmk,behavior-hold-tap";
+            label = "RPHT";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <400>;
+            hold-trigger-key-positions = <29 17 5 4 3 2 3 4 14 15 16 26 27 28 1 13 25>;
+            flavor = "tap-unless-interrupted";
+        };
+
+        meh: meh {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MEH";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <500>;
+            flavor = "tap-unless-interrupted";
+            retro-tap;
+            hold-trigger-key-positions = <16 15 14 13>;
+        };
+
+        colon_semi: colon_semi {
+            compatible = "zmk,behavior-tap-dance";
+            label = "COLON_SEMI";
+            #binding-cells = <0>;
+            tapping-term-ms = <400>;
+            bindings = <&kp COLON>, <&kp SEMI>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
+            // | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
+            // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
+            //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
+
+            display-name = "Base";
+            bindings = <
+&kp TAB     &kp Q  &kp W         &kp F          &kp P          &kp B        &kp J                         &kp L          &kp U          &kp Y         &kp COMMA  &none
+&kp ESCAPE  &kp A  &lpht LALT R  &lpht LMETA S  &lpht LCTRL T  &kp G        &kp M                         &rpht RCTRL N  &rpht RMETA E  &rpht RALT I  &kp O      &kp BACKSPACE
+&none       &kp Z  &kp X         &kp C          &kp D          &kp V        &kp K                         &kp H          &kp PERIOD     &kp SLASH     &none      &none
+                                 &kp LSHIFT     &none          &kp ENTER    &meh RA(RC(RG(RSHFT))) SPACE  &to 1          &kp RSHIFT
+            >;
+        };
+
+        special_characters {
+            bindings = <
+&kp GRAVE  &kp EXCLAMATION  &kp AT  &kp HASH      &kp DOLLAR   &kp SLASH            &kp BACKSLASH   &kp PERCENT           &kp CARET              &kp AMPS          &kp ASTRK  &kp PIPE
+&trans     &trans           &trans  &kp QUESTION  &kp EQUAL    &kp DOUBLE_QUOTES    &kp LEFT_BRACE  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACE   &trans     &trans
+&trans     &trans           &trans  &trans        &colon_semi  &kp SINGLE_QUOTE     &kp LESS_THAN   &kp LEFT_BRACKET      &kp LEFT_BRACKET       &kp GREATER_THAN  &trans     &trans
+                                    &trans        &to 0        &trans               &trans          &to 2                 &trans
+            >;
+        };
+
+        number_layer {
+            bindings = <
+&trans  &trans  &kp CARET    &kp SLASH  &kp ASTRK  &kp DOLLAR    &trans  &kp N7        &kp N8        &kp N9        &trans  &trans
+&trans  &trans  &kp PERCENT  &kp MINUS  &kp PLUS   &kp EQUAL     &trans  &kp NUMBER_4  &kp N5        &kp NUMBER_6  &trans  &trans
+&trans  &trans  &trans       &trans     &trans     &trans        &trans  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &trans  &trans
+                             &trans     &to 0      &mo 3         &trans  &kp N0        &trans
+            >;
+        };
+
+        function_layer {
+            bindings = <
+&trans  &trans      &trans    &trans    &trans     &trans    &trans  &kp F7   &kp F8  &kp F9  &trans  &trans
+&trans  &kp LSHIFT  &kp LALT  &kp LGUI  &kp LCTRL  &trans    &trans  &kp F4   &kp F5  &kp F6  &trans  &trans
+&trans  &trans      &trans    &trans    &trans     &trans    &trans  &kp F1   &kp F2  &kp F3  &trans  &trans
+                              &trans    &trans     &trans    &trans  &kp F10  &trans
+            >;
+        };
+
+        navigation {
+            bindings = <
+&trans  &trans          &trans    &trans    &trans     &trans    &trans  &trans          &kp UP_ARROW    &trans     &trans  &trans
+&trans  &kp LEFT_SHIFT  &kp LALT  &kp LGUI  &kp LCTRL  &trans    &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT  &trans  &trans
+&trans  &trans          &trans    &trans    &trans     &trans    &trans  &trans          &trans          &trans     &trans  &trans
+                                  &trans    &trans     &trans    &trans  &trans          &trans
+            >;
+        };
+
+        layer_3 {
+            bindings = <
+&trans         &kp K_MUTE      &kp C_VOL_DN      &kp C_VOL_UP  &trans        &kp LS(LG(NUMBER_3))    &kp LS(LG(N5))  &kp C_BRIGHTNESS_MINIMUM  &kp C_BRIGHTNESS_DEC  &kp C_BRIGHTNESS_INC  &kp C_BRIGHTNESS_MAXIMUM  &trans
+&kp LC(LG(Q))  &kp C_PREVIOUS  &kp C_PLAY_PAUSE  &kp C_NEXT    &kp LC(UP)    &trans                  &trans          &kp LEFT                  &kp UP_ARROW          &kp DOWN              &kp RIGHT                 &trans
+&trans         &trans          &trans            &trans        &kp LC(DOWN)  &trans                  &trans          &trans                    &trans                &trans                &trans                    &trans
+                                                 &trans        &trans        &trans                  &trans          &trans                    &trans
+            >;
+        };
+
+        layer_4 {
+            bindings = <
+&bt BT_CLR     &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &trans  &trans    &trans  &trans    &trans     &trans
+&kp LC(LG(Q))  &trans        &trans        &trans        &trans        &trans          &trans  &kp LEFT  &kp UP  &kp DOWN  &kp RIGHT  &trans
+&trans         &trans        &trans        &trans        &trans        &trans          &trans  &trans    &trans  &trans    &trans     &trans
+                                           &trans        &trans        &trans          &trans  &trans    &trans
+            >;
+        };
+    };
+};

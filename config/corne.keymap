@@ -67,10 +67,10 @@
 
             display-name = "Base";
             bindings = <
-&kp TAB     &kp Q  &kp W         &kp F          &kp P          &kp B        &kp J                         &kp L          &kp U          &kp Y         &kp COMMA  &none
-&kp ESCAPE  &kp A  &lpht LALT R  &lpht LMETA S  &lpht LCTRL T  &kp G        &kp M                         &rpht RCTRL N  &rpht RMETA E  &rpht RALT I  &kp O      &kp BACKSPACE
-&none       &kp Z  &kp X         &kp C          &kp D          &kp V        &kp K                         &kp H          &kp PERIOD     &kp SLASH     &none      &none
-                                 &kp LSHIFT     &none          &kp ENTER    &meh RA(RC(RG(RSHFT))) SPACE  &to 1          &kp RSHIFT
+&kp TAB     &kp BSPC          &kp BSPC  &kp BSPC    &kp P  &kp Y        &kp F                         &kp G  &kp C       &kp R  &kp L  &none
+&kp ESCAPE  &kp A             &kp O     &kp E       &kp U  &kp I        &kp D                         &kp H  &kp T       &kp N  &kp S  &kp BACKSPACE
+&none       &kp SINGLE_QUOTE  &kp Q     &kp J       &kp K  &kp X        &kp B                         &kp M  &kp W       &kp V  &kp Z  &none
+                                        &kp LSHIFT  &none  &kp ENTER    &meh RA(RC(RG(RSHFT))) SPACE  &to 1  &kp RSHIFT
             >;
         };
 
